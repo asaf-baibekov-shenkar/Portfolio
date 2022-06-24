@@ -114,77 +114,77 @@
                     <div class="container">
                         <div class="text-center"></div>
                         <div class="row">
+                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                <?php
+                                    $project_id = htmlspecialchars($row["project_id"]);
+                                    $project_name = htmlspecialchars($row["project_name"]);
+                                    $project_description = htmlspecialchars($row["project_description"]);
+                                    $programming_language = htmlspecialchars($row["programming_language"]);
+                                    $github = htmlspecialchars($row["project_github"]);
+                                    $project_pic = htmlspecialchars($row["project_pic"]);
+                                ?>
+                                <div class="col-lg-4 col-sm-6 mb-4">
+                                    <div class="portfolio-item">
+                                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal<?php echo $project_id; ?>">
+                                            <div class="portfolio-hover">
+                                                <div class="portfolio-hover-content"><i class="fa-solid fa-ellipsis fa-3x"></i></div>
+                                            </div>
+                                            <img class="img-fluid" src="<?php echo $project_pic; ?>" alt="<?php echo $project_name; ?>" />
+                                        </a>
+                                        <div class="portfolio-caption">
+                                            <div class="portfolio-caption-heading"><?php echo $project_name; ?></div>
+                                            <div class="portfolio-caption-subheading text-muted"><?php echo $programming_language; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endwhile; ?>
                             <?php
-                                while ($row = mysqli_fetch_assoc($result)) { // results are in associative array. keys are cols names
-                                        $project_id = $row["project_id"];
-                                        $project_name = $row["project_name"];
-                                        $project_description = $row["project_description"];
-                                        $programming_language = $row["programming_language"];
-                                        $github = $row["project_github"];
-                                        $project_pic = $row["project_pic"];
-                                echo    '<div class="col-lg-4 col-sm-6 mb-4">';
-                                echo        '<div class="portfolio-item">';
-                                echo            '<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal'.$project_id.'">';
-                                echo                '<div class="portfolio-hover">';
-                                echo                    '<div class="portfolio-hover-content"><i class="fa-solid fa-ellipsis fa-3x"></i></div>';
-                                echo                '</div>';
-                                echo                '<img class="img-fluid" src="'.$project_pic.'" alt="'.$project_name.'" />';
-                                echo            '</a>';
-                                echo            '<div class="portfolio-caption">';
-                                echo                '<div class="portfolio-caption-heading">'.$project_name.'</div>';
-                                echo                '<div class="portfolio-caption-subheading text-muted">'.$programming_language.'</div>';
-                                echo            '</div>';
-                                echo        '</div>';
-                                echo    '</div>';
-                                }
+                                mysqli_free_result($result);
                             ?>
                         </div>
                     </div>
                 </section>
-                <?php
-                    while ($row = mysqli_fetch_assoc($resultPopUp)) {
-                            $project_id = $row["project_id"];
-                            $project_name = $row["project_name"];
-                            $project_description = $row["project_description"];
-                            $programming_language = $row["programming_language"];
-                            $github = $row["project_github"];
-                            $project_pic = $row["project_pic"];
-                            $project_link = $row["project_link"];
-                            echo    '<div class="portfolio-modal modal fade " id="portfolioModal'.$project_id.'" tabindex="-1" role="dialog" aria-hidden="true">';
-                            echo        '<div class="modal-dialog">';
-                            echo            '<div class="modal-content">';
-                            echo                '<div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon2.svg" alt="Close modal" /></div>';
-                            echo                 '<div class="container">';
-                            echo                     '<div class="row justify-content-center">';
-                            echo                         '<div class="col-lg-8">';
-                            echo                            '<div class="modal-body">';
-                            echo                                '<h2 class="text-uppercase">'.$project_name.'</h2>';
-                            echo                                '<p class="item-intro text-muted">'.$programming_language.'</p>';
-                            echo                                '<img class="img-fluid d-block mx-auto" src="'.$project_pic.'" alt="'.$project_name.'" />';
-                            echo                                '<p>'.$project_description.'</p>';
-                            echo                                '<ul class="list-inline">';
-                            echo                                    '<li>';
-                            echo                                        '<a href="'.$github.'" target="_blank" class="gitHubPic"></a>';
-                            echo                                    '</li>';
-                                                                if ($project_link !="NULL"){
-                                                                    echo    '<li>';
-                                                                    echo        '<a href="'.$project_link .'" target="_blank" class="toTheCode"></a>';
-                                                                    echo    '</li>';         
-                                                                }
-                            echo                                '</ul>';
-                            echo                                '<button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">';
-                            echo                            '<i class="fas fa-times me-1"></i>';
-                            echo                           ' Close Project';
-                            echo                        '</button>';
-                            echo                            '</div>';
-                            echo                        '</div>';
-                            echo                    '</div>';
-                            echo                '</div>';
-                            echo            '</div>';
-                            echo        '</div>';
-                            echo    '</div>';
-                    }
-                ?>
+                <?php while ($row = mysqli_fetch_assoc($resultPopUp)) : ?>
+                    <?php
+                        $project_id = $row["project_id"];
+                        $project_name = $row["project_name"];
+                        $project_description = $row["project_description"];
+                        $programming_language = $row["programming_language"];
+                        $github = $row["project_github"];
+                        $project_pic = $row["project_pic"];
+                        $project_link = $row["project_link"];
+                    ?>
+                    <div class="portfolio-modal modal fade " id="portfolioModal<?php echo $project_id; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon2.svg" alt="Close modal" /></div>
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-8">
+                                            <div class="modal-body">
+                                                <h2 class="text-uppercase"><?php echo $project_name; ?></h2>
+                                                <p class="item-intro text-muted"><?php echo $programming_language; ?></p>
+                                                <img class="img-fluid d-block mx-auto" src="<?php echo $project_pic; ?>" alt="<?php echo $project_name; ?>" />
+                                                <p><?php echo $project_description; ?></p>
+                                                <ul class="list-inline">
+                                                    <?php if ($github != "NULL") : ?>
+                                                        <li>
+                                                            <a href="<?php echo $github; ?>" target="_blank" class="gitHubPic"></a>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <li>
+                                                        <a href="<?php echo $project_link; ?>" target="_blank" class="toTheCode"></a>
+                                                    </li>
+                                                </ul>
+                                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button"><i class="fas fa-times me-1"></i>Close Project</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </section>
@@ -240,8 +240,7 @@
                 </div>
                 <div class="column right">
                     <div class="text">Message me</div>
-                    <form class="contact-form" action="https://formsubmit.co/asafall21@gmail.com" method="POST"
-                        target="_blank">
+                    <form class="contact-form" action="https://formsubmit.co/asafall21@gmail.com" method="POST" target="_blank">
                         <div class="fields">
                             <div class="field name">
                                 <input type="text" class="fullname" name="name" placeholder="Name" required>
